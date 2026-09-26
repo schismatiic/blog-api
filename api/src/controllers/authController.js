@@ -1,4 +1,5 @@
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 import db from "../../db/queries.js";
 import { body, validationResult, matchedData } from "express-validator";
 
@@ -59,7 +60,7 @@ const validateCreateUser = [
     })
     .withMessage("Passwords do not match."),
 ];
-const validateLogIn = [
+const validateLogin = [
   body("identifier")
     .trim()
     .notEmpty()
@@ -91,4 +92,36 @@ const createUser = async (req, res) => {
   });
 };
 
-export { createUser, validateCreateUser };
+// Login
+const loginUser = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({
+      errors: errors.array(),
+    });
+  }
+  // Find the user :D
+  const { identifier, password } = matchedData(req);
+  const user = await db.getIdentifier(identifier);
+  // If the user doesn't exist...
+  if (!user) {
+    return res.status(401).json({
+      message: "Invalid credentials",
+    });
+  }
+  const match = await bcrypt.compare(password, user.password);
+  // If the password doesn't match...
+  if (!match) {
+    return res.status(401).json({
+      message: "Invalid credentials",
+    });
+  }
+  // JWT
+  const token = jwt.sign(
+    { userId: user.id, username: user.username, role: user.role },
+    process.env.JWT_SECRET,
+    { expiresIn: "1h" },
+  );
+  return res.json({ token });
+};
+export { createUser, loginUser, validateCreateUser, validateLogin };

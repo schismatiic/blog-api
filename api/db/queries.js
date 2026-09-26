@@ -11,6 +11,14 @@ const createUser = async (firstName, lastName, username, email, password) => {
   });
   return user;
 };
+const getIdentifier = async (identifier) => {
+  const user = await prisma.users.findFirst({
+    where: {
+      OR: [{ username: identifier }, { email: identifier }],
+    },
+  });
+  return user;
+};
 const getUsername = async (username) => {
   const user = await prisma.users.findFirst({
     where: {
@@ -28,4 +36,4 @@ const getEmail = async (email) => {
   return user;
 };
 
-export default { createUser, getUsername, getEmail };
+export default { createUser, getIdentifier, getUsername, getEmail };
