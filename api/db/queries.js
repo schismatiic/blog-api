@@ -14,12 +14,13 @@ const createUser = async (firstName, lastName, username, email, password) => {
   return user;
 };
 // ---- Posts ----
-const createPost = async (title, content, imageUrl, usersId) => {
+const createPost = async (title, content, imageUrl, isPublished, usersId) => {
   const post = await prisma.posts.create({
     data: {
       title,
       content,
       imageUrl,
+      isPublished,
       usersId,
     },
   });
@@ -80,6 +81,18 @@ const getPostById = async (id) => {
   });
   return post;
 };
+const getAdminPosts = async () => {
+  const posts = await prisma.posts.findMany();
+  return posts;
+};
+const getAdminPostById = async (id) => {
+  const post = await prisma.posts.findUnique({
+    where: {
+      id,
+    },
+  });
+  return post;
+};
 // ---- Comments ----
 const getComments = async (postsId) => {
   const comments = await prisma.comments.findMany({
@@ -89,7 +102,22 @@ const getComments = async (postsId) => {
   });
   return comments;
 };
-
+// ============ UPDATE ============
+// ---- Posts ----
+const updatePost = async (id, title, content, imageUrl, isPublished) => {
+  const post = await prisma.posts.update({
+    where: {
+      id,
+    },
+    data: {
+      title,
+      content,
+      imageUrl,
+      isPublished,
+    },
+  });
+  return post;
+};
 export default {
   createUser,
   createPost,
@@ -99,5 +127,8 @@ export default {
   getEmail,
   getPosts,
   getPostById,
+  getAdminPosts,
+  getAdminPostById,
   getComments,
+  updatePost,
 };
