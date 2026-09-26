@@ -3,6 +3,7 @@ import "dotenv/config";
 import authRouter from "./routes/authRouter.js";
 import postRouter from "./routes/postRouter.js";
 import commentRouter from "./routes/commentRouter.js";
+import adminRouter from "./routes/adminRouter.js";
 
 const app = express();
 
@@ -12,6 +13,7 @@ app.use(express.json());
 app.use("/auth", authRouter);
 app.use("/posts", postRouter);
 app.use("/posts/:postId/comments", commentRouter);
+app.use("/admin", adminRouter);
 app.use("/", (req, res) => {
   res.send("Meaningless");
 });

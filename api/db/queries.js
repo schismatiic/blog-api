@@ -13,6 +13,18 @@ const createUser = async (firstName, lastName, username, email, password) => {
   });
   return user;
 };
+// ---- Posts ----
+const createPost = async (title, content, imageUrl, usersId) => {
+  const post = await prisma.posts.create({
+    data: {
+      title,
+      content,
+      imageUrl,
+      usersId,
+    },
+  });
+  return post;
+};
 // ---- Comments ----
 const createComment = async (content, usersId, postsId) => {
   const comment = await prisma.comments.create({
@@ -60,9 +72,10 @@ const getPosts = async () => {
   return posts;
 };
 const getPostById = async (id) => {
-  const post = await prisma.posts.findUnique({
+  const post = await prisma.posts.findFirst({
     where: {
       id,
+      isPublished: true,
     },
   });
   return post;
@@ -79,6 +92,7 @@ const getComments = async (postsId) => {
 
 export default {
   createUser,
+  createPost,
   createComment,
   getIdentifier,
   getUsername,
