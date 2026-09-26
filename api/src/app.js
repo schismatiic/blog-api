@@ -1,5 +1,6 @@
 import express from "express";
 import authRouter from "./routes/authRouter.js";
+import postRouter from "./routes/postRouter.js";
 import "dotenv/config";
 
 const app = express();
@@ -8,6 +9,7 @@ app.use(express.json());
 
 // Routes
 app.use("/auth", authRouter);
+app.use("/posts", postRouter);
 app.use("/", (req, res) => {
   res.send("Meaningless");
 });
