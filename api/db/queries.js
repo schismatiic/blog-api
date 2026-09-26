@@ -13,6 +13,17 @@ const createUser = async (firstName, lastName, username, email, password) => {
   });
   return user;
 };
+// ---- Comments ----
+const createComment = async (content, usersId, postsId) => {
+  const comment = await prisma.comments.create({
+    data: {
+      content,
+      usersId,
+      postsId,
+    },
+  });
+  return comment;
+};
 // ============ READ ============
 // ---- Users ----
 const getIdentifier = async (identifier) => {
@@ -56,12 +67,23 @@ const getPostById = async (id) => {
   });
   return post;
 };
+// ---- Comments ----
+const getComments = async (postsId) => {
+  const comments = await prisma.comments.findMany({
+    where: {
+      postsId,
+    },
+  });
+  return comments;
+};
 
 export default {
   createUser,
+  createComment,
   getIdentifier,
   getUsername,
   getEmail,
   getPosts,
   getPostById,
+  getComments,
 };
