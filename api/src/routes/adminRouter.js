@@ -4,6 +4,7 @@ import {
   getPosts,
   getPost,
   updatePost,
+  deletePost,
   validateCreatePost,
   validateUpdatePost,
 } from "../controllers/adminController.js";
@@ -28,5 +29,6 @@ adminRouter.put(
   validateUpdatePost,
   updatePost,
 );
+adminRouter.delete("/posts/:postId", verifyToken, verifyAdmin, deletePost);
 
 export default adminRouter;

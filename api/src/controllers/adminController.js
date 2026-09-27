@@ -85,12 +85,19 @@ const updatePost = async (req, res) => {
   );
   return res.json(post);
 };
+// Delete
+const deletePost = async (req, res) => {
+  const { postId } = req.params;
+  await db.deletePost(Number(postId));
+  return res.sendStatus(204);
+};
 
 export {
   createPost,
   getPosts,
   getPost,
   updatePost,
+  deletePost,
   validateCreatePost,
   validateUpdatePost,
 };
