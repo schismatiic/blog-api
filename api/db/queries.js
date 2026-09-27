@@ -102,6 +102,10 @@ const getComments = async (postsId) => {
   });
   return comments;
 };
+const getAdminComments = async (postsId) => {
+  const comments = await prisma.comments.findMany();
+  return comments;
+};
 // ============ UPDATE ============
 // ---- Posts ----
 const updatePost = async (id, title, content, imageUrl, isPublished) => {
@@ -127,6 +131,14 @@ const deletePost = async (id) => {
     },
   });
 };
+// ---- Comments ----
+const deleteComment = async (id) => {
+  await prisma.comments.delete({
+    where: {
+      id,
+    },
+  });
+};
 
 export default {
   createUser,
@@ -140,6 +152,8 @@ export default {
   getAdminPosts,
   getAdminPostById,
   getComments,
+  getAdminComments,
   updatePost,
   deletePost,
+  deleteComment,
 };

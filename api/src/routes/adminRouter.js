@@ -3,8 +3,10 @@ import {
   createPost,
   getPosts,
   getPost,
+  getComments,
   updatePost,
   deletePost,
+  deleteComment,
   validateCreatePost,
   validateUpdatePost,
 } from "../controllers/adminController.js";
@@ -30,5 +32,12 @@ adminRouter.put(
   updatePost,
 );
 adminRouter.delete("/posts/:postId", verifyToken, verifyAdmin, deletePost);
+adminRouter.get("/comments", verifyToken, verifyAdmin, getComments);
+adminRouter.delete(
+  "/comments/:commentId",
+  verifyToken,
+  verifyAdmin,
+  deleteComment,
+);
 
 export default adminRouter;

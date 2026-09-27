@@ -66,6 +66,11 @@ const getPost = async (req, res) => {
   }
   return res.json(post);
 };
+const getComments = async (req, res) => {
+  const { postId } = req.params;
+  const comments = await db.getAdminComments(Number(postId));
+  return res.json(comments);
+};
 // Update
 const updatePost = async (req, res) => {
   const errors = validationResult(req);
@@ -91,13 +96,20 @@ const deletePost = async (req, res) => {
   await db.deletePost(Number(postId));
   return res.sendStatus(204);
 };
+const deleteComment = async (req, res) => {
+  const { commentId } = req.params;
+  await db.deleteComment(Number(commentId));
+  return res.sendStatus(204);
+};
 
 export {
   createPost,
   getPosts,
   getPost,
+  getComments,
   updatePost,
   deletePost,
+  deleteComment,
   validateCreatePost,
   validateUpdatePost,
 };
