@@ -35,7 +35,7 @@ model Comments {
   id      Int      @id @default(autoincrement())
   content String
   added   DateTime @default(now())
-  posts   Posts    @relation(fields: [postsId], references: [id])
+  posts   Posts    @relation(fields: [postsId], references: [id], onDelete: Cascade)
   users   Users    @relation(fields: [usersId], references: [id])
   usersId Int
   postsId Int
