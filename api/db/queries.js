@@ -122,6 +122,17 @@ const updatePost = async (id, title, content, imageUrl, isPublished) => {
   });
   return post;
 };
+const updatePostPublished = async (id, isPublished) => {
+  const post = await prisma.posts.update({
+    where: {
+      id,
+    },
+    data: {
+      isPublished,
+    },
+  });
+  return post;
+};
 // ============ DELETE ============
 // ---- Posts ----
 const deletePost = async (id) => {
@@ -154,6 +165,7 @@ export default {
   getComments,
   getAdminComments,
   updatePost,
+  updatePostPublished,
   deletePost,
   deleteComment,
 };

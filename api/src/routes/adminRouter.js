@@ -5,10 +5,12 @@ import {
   getPost,
   getComments,
   updatePost,
+  updatePostPublished,
   deletePost,
   deleteComment,
   validateCreatePost,
   validateUpdatePost,
+  validateUpdatePostPublished,
 } from "../controllers/adminController.js";
 import verifyToken from "../middleware/verifyToken.js";
 import verifyAdmin from "../middleware/verifyAdmin.js";
@@ -30,6 +32,13 @@ adminRouter.put(
   verifyAdmin,
   validateUpdatePost,
   updatePost,
+);
+adminRouter.patch(
+  "/posts/:postId",
+  verifyToken,
+  verifyAdmin,
+  validateUpdatePostPublished,
+  updatePostPublished,
 );
 adminRouter.delete("/posts/:postId", verifyToken, verifyAdmin, deletePost);
 adminRouter.get("/comments", verifyToken, verifyAdmin, getComments);

@@ -34,6 +34,9 @@ const validateUpdatePost = [
     .withMessage("Enter a valid image URL"),
   body("isPublished").isBoolean().withMessage("isPublished must be a boolean"),
 ];
+const validateUpdatePostPublished = [
+  body("isPublished").isBoolean().withMessage("isPublished must be a boolean"),
+];
 // Create
 const createPost = async (req, res) => {
   const errors = validationResult(req);
@@ -90,6 +93,18 @@ const updatePost = async (req, res) => {
   );
   return res.json(post);
 };
+const updatePostPublished = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({
+      errors: errors.array(),
+    });
+  }
+  const { postId } = req.params;
+  const { isPublished } = matchedData(req);
+  const post = await db.updatePostPublished(Number(postId), isPublished);
+  return res.json(post);
+};
 // Delete
 const deletePost = async (req, res) => {
   const { postId } = req.params;
@@ -108,8 +123,10 @@ export {
   getPost,
   getComments,
   updatePost,
+  updatePostPublished,
   deletePost,
   deleteComment,
   validateCreatePost,
   validateUpdatePost,
+  validateUpdatePostPublished,
 };
