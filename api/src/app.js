@@ -1,5 +1,5 @@
-import express from "express";
 import "dotenv/config";
+import express from "express";
 import authRouter from "./routes/authRouter.js";
 import postRouter from "./routes/postRouter.js";
 import commentRouter from "./routes/commentRouter.js";
@@ -15,7 +15,9 @@ app.use("/posts", postRouter);
 app.use("/posts/:postId/comments", commentRouter);
 app.use("/admin", adminRouter);
 app.use("/", (req, res) => {
-  res.send("Meaningless");
+  res.json({
+    message: "Blog API is running",
+  });
 });
 // Error handling middleware
 app.use((err, req, res, next) => {

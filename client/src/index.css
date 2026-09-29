@@ -1,0 +1,27 @@
+@import "tailwindcss";
+@theme {
+  --font-heading: "Fredoka", sans-serif;
+  --font-body: "Comfortaa", sans-serif;
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background-color: #b8e3dd;
+  background-image: radial-gradient(circle, #ffffff 8px, transparent 9px);
+  background-size: 50px 50px;
+  font-family: var(--font-body);
+  color: oklch(43.8% 0.017 39.3);
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  color: oklch(77.7% 0.152 181.912);
+}
