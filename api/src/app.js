@@ -1,5 +1,6 @@
 import "dotenv/config";
 import express from "express";
+import cors from "cors";
 import authRouter from "./routes/authRouter.js";
 import postRouter from "./routes/postRouter.js";
 import commentRouter from "./routes/commentRouter.js";
@@ -8,6 +9,7 @@ import adminRouter from "./routes/adminRouter.js";
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 
 // Routes
 app.use("/auth", authRouter);

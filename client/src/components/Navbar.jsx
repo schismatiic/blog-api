@@ -28,7 +28,7 @@ const Navbar = () => {
                 strokeWidth={3}
                 className="w-6 h-6 text-teal-400 rotate-30"
               />
-              <h1 className="flex items-center font-black text-lg md:text-2xl">
+              <h1 className="flex items-center font-black text-lg md:text-2xl ">
                 Blog Fufú
               </h1>
             </Link>
@@ -46,7 +46,7 @@ const Navbar = () => {
           </ul>
           {/* Auth buttons  */}
           <ul className="flex gap-2 items-center text-sm md:text-lg">
-            <li className="flex gap-1 items-center text-olive-100 px-2 py-1 rounded-xl bg-teal-400 hover:bg-teal-500 cursor-pointer">
+            <li className="flex gap-1 items-center text-olive-100 px-2 py-1 rounded-xl bg-teal-400 hover:bg-teal-500 cursor-pointer whitespace-nowrap">
               <LogIn className="w-5 h-5" />
               <Link to="/auth/login">Log In</Link>
             </li>
