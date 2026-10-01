@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { getPostById } from "../services/api";
 import { ChevronLeft } from "lucide-react";
+import { FaPaw } from "react-icons/fa";
 import { Link } from "react-router";
-import Comments from "./Comments";
+import Comments from "../components/Comments";
 
 const Post = () => {
   const { postId } = useParams();
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     const loadPost = async () => {
       try {
@@ -23,9 +23,13 @@ const Post = () => {
     };
     loadPost();
   }, [postId]);
-  if (loading) {
-    return <p>Loading post...</p>;
-  }
+  if (loading)
+    return (
+      <div className="flex flex-col gap-y-4 justify-center items-center min-h-screen">
+        <p className="text-teal-400 text-sm tracking-wide">Loading post...</p>
+        <FaPaw className="text-teal-400 text-5xl animate-paw-spin" />
+      </div>
+    );
   if (!post) {
     return <p>Post not found.</p>;
   }

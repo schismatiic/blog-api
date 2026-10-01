@@ -1,5 +1,21 @@
 const API_URL = import.meta.env.VITE_API_URL;
 
+// ============ CREATE ============
+// ---- Users ----
+const registerUser = async (userData) => {
+  const response = await fetch(`${API_URL}/auth/register`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(userData),
+  });
+  const data = await response.json();
+  if (!response.ok) {
+    throw new Error(data.errors?.[0]?.msg || "Failed to register user");
+  }
+  return data;
+};
 // ============ GET ============
 // ---- Posts ----
 const getPosts = async () => {
@@ -25,4 +41,4 @@ const getComments = async (postId) => {
   return response.json();
 };
 
-export { getPosts, getPostById, getComments };
+export { registerUser, getPosts, getPostById, getComments };

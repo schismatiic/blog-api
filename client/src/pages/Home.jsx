@@ -1,9 +1,11 @@
 import PostCard from "../components/PostCard";
 import { useEffect, useState } from "react";
+import { FaPaw } from "react-icons/fa";
 import { getPosts } from "../services/api";
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const loadPosts = async () => {
@@ -12,11 +14,19 @@ const Home = () => {
         setPosts(data);
       } catch (error) {
         console.error(error);
+      } finally {
+        setLoading(false);
       }
     };
     loadPosts();
   }, []);
-
+  if (loading)
+    return (
+      <div className="flex flex-col gap-y-4 justify-center items-center min-h-screen">
+        <p className="text-teal-400 text-sm tracking-wide">Loading posts...</p>
+        <FaPaw className="text-teal-400 text-5xl animate-paw-spin" />
+      </div>
+    );
   return (
     <div className="mx-4 md:mx-16 my-4 ">
       <header className="mb-6 ">
@@ -30,7 +40,7 @@ const Home = () => {
       {posts.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {posts.map((post) => (
-            <PostCard post={post} />
+            <PostCard key={post.id} post={post} />
           ))}
         </div>
       ) : (

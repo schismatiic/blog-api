@@ -51,14 +51,6 @@ const validateCreateUser = [
     .withMessage("Password is required.")
     .isLength({ min: 5 })
     .withMessage(`Password ${lengthErr2}`),
-  body("confirmPassword")
-    .trim()
-    .notEmpty()
-    .withMessage("Confirm password is required.")
-    .custom((value, { req }) => {
-      return value === req.body.password;
-    })
-    .withMessage("Passwords do not match."),
 ];
 const validateLogin = [
   body("identifier")

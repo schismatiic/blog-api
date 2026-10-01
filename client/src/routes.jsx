@@ -1,6 +1,7 @@
 import App from "./App";
 import Home from "./pages/Home";
-import Post from "./components/Post";
+import Post from "./pages/Post";
+import Register from "./pages/Register";
 import About from "./pages/About";
 import ErrorPage from "./pages/ErrorPage";
 
@@ -17,6 +18,10 @@ const routes = [
       {
         path: "posts/:postId",
         element: <Post />,
+      },
+      {
+        path: "auth/register",
+        element: <Register />,
       },
       {
         path: "about",

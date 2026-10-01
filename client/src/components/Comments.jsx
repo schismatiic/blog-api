@@ -27,7 +27,9 @@ const Comments = ({ postId }) => {
       <h2 className="text-2xl mb-2">Comments</h2>
       <ul className="flex flex-col gap-1">
         {comments.length > 0 ? (
-          comments.map((comment) => <CommentCard comment={comment} />)
+          comments.map((comment) => (
+            <CommentCard key={comment.id} comment={comment} />
+          ))
         ) : (
           <p className="text-taupe-500">No comments yet.</p>
         )}
