@@ -4,7 +4,7 @@ import { Link } from "react-router";
 const About = () => {
   return (
     <section id="about" className="flex flex-col items-center px-4 py-12">
-      <div className="w-full max-w-3xl rounded-3xl bg-olive-100 p-6 md:p-10 shadow-sm border border-taupe-600/30">
+      <div className="w-full max-w-3xl rounded-3xl bg-olive-100 p-6 md:p-10 shadow-sm border border-taupe-600/20">
         <h1 className="text-3xl md:text-4xl font-black text-teal-400 text-center">
           About Blog Fufú
         </h1>

@@ -5,6 +5,7 @@ import authRouter from "./routes/authRouter.js";
 import postRouter from "./routes/postRouter.js";
 import commentRouter from "./routes/commentRouter.js";
 import adminRouter from "./routes/adminRouter.js";
+import userRouter from "./routes/userRouter.js";
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use("/auth", authRouter);
 app.use("/posts", postRouter);
 app.use("/posts/:postId/comments", commentRouter);
 app.use("/admin", adminRouter);
+app.use("/users", userRouter);
 app.use("/", (req, res) => {
   res.json({
     message: "Blog API is running",

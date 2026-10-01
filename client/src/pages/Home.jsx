@@ -35,7 +35,7 @@ const Home = () => {
         </div>
       ) : (
         <div className="flex justify-center">
-          <p className="text-center text-lg text-taupe-600 flex h-full flex-col overflow-hidden rounded-2xl p-4 w-fit bg-olive-100 border border-taupe-600/30 shadow-sm">
+          <p className="text-center text-lg text-taupe-600 flex h-full flex-col overflow-hidden rounded-2xl p-4 w-fit bg-olive-100 border border-taupe-600/20 shadow-sm">
             There are no posts yet. Check back soon, meow! ♡
           </p>
         </div>

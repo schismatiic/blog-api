@@ -99,6 +99,14 @@ const getComments = async (postsId) => {
     where: {
       postsId,
     },
+    include: {
+      users: {
+        select: {
+          username: true,
+          avatarUrl: true,
+        },
+      },
+    },
   });
   return comments;
 };
@@ -107,6 +115,18 @@ const getAdminComments = async (postsId) => {
   return comments;
 };
 // ============ UPDATE ============
+// ---- Users ----
+const updateUserAvatar = async (id, avatarUrl) => {
+  const user = await prisma.users.update({
+    where: {
+      id,
+    },
+    data: {
+      avatarUrl,
+    },
+  });
+  return user;
+};
 // ---- Posts ----
 const updatePost = async (id, title, content, imageUrl, isPublished) => {
   const post = await prisma.posts.update({
@@ -164,6 +184,7 @@ export default {
   getAdminPostById,
   getComments,
   getAdminComments,
+  updateUserAvatar,
   updatePost,
   updatePostPublished,
   deletePost,
