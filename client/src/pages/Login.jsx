@@ -2,8 +2,10 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { ChevronLeft } from "lucide-react";
 import { loginUser } from "../services/api";
+import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
+  const { login } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -24,7 +26,7 @@ const Login = () => {
     setLoading(true);
     try {
       const data = await loginUser(formData);
-      localStorage.setItem("token", data.token);
+      login(data.token);
       navigate("/");
     } catch (error) {
       setError(error.message);

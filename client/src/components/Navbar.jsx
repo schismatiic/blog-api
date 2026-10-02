@@ -2,8 +2,10 @@ import { Link } from "react-router";
 import { Menu, House, Info, X, LogIn, UserRoundPlus } from "lucide-react";
 import { useState } from "react";
 import { FaPaw } from "react-icons/fa";
+import { useAuth } from "../context/AuthContext";
 
 const Navbar = () => {
+  const { token, logout } = useAuth();
   const [toggleOpen, setToggleOpen] = useState(false);
   return (
     <header className="sticky top-0 z-50 bg-olive-100 shadow-sm">
@@ -45,16 +47,25 @@ const Navbar = () => {
             </li>
           </ul>
           {/* Auth buttons  */}
-          <ul className="flex gap-2 items-center text-sm md:text-lg">
-            <li className="flex gap-1 items-center text-olive-100 px-2 py-1 rounded-xl bg-teal-400 hover:bg-teal-500 cursor-pointer whitespace-nowrap">
-              <LogIn className="w-5 h-5" />
-              <Link to="/auth/login">Log In</Link>
-            </li>
-            <li className="flex gap-1 items-center border border-taupe-600/40 px-2 py-1 rounded-xl hover:bg-olive-200 cursor-pointer">
-              <UserRoundPlus className="w-5 h-5" />
-              <Link to="/auth/register">Register</Link>
-            </li>
-          </ul>
+          {token ? (
+            <button
+              className="flex gap-1 items-center border border-taupe-600/40 px-2 py-1 rounded-xl hover:bg-olive-200 cursor-pointer"
+              onClick={logout}
+            >
+              Log out
+            </button>
+          ) : (
+            <ul className="flex gap-2 items-center text-sm md:text-lg">
+              <li className="flex gap-1 items-center text-olive-100 px-2 py-1 rounded-xl bg-teal-400 hover:bg-teal-500 cursor-pointer whitespace-nowrap">
+                <LogIn className="w-5 h-5" />
+                <Link to="/auth/login">Log In</Link>
+              </li>
+              <li className="flex gap-1 items-center border border-taupe-600/40 px-2 py-1 rounded-xl hover:bg-olive-200 cursor-pointer">
+                <UserRoundPlus className="w-5 h-5" />
+                <Link to="/auth/register">Register</Link>
+              </li>
+            </ul>
+          )}
         </div>
         {toggleOpen && (
           <ul className="md:hidden flex flex-col font-medium text-lg">
