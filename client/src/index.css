@@ -25,16 +25,17 @@ h6 {
   font-family: var(--font-heading);
   color: oklch(77.7% 0.152 181.912);
 }
-@keyframes paw-spin-3d {
-  0% {
-    transform: perspective(600px) rotateY(0deg);
-  }
-  100% {
-    transform: perspective(600px) rotateY(360deg);
-  }
-}
+@theme {
+  --animate-paw-spin: paw-spin 1.2s ease-in-out infinite;
 
-.animate-paw-spin {
-  animation: paw-spin-3d 1.2s linear infinite;
-  transform-style: preserve-3d;
+  @keyframes paw-spin {
+    0%,
+    100% {
+      transform: rotate(-15deg);
+    }
+
+    50% {
+      transform: rotate(15deg);
+    }
+  }
 }

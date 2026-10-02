@@ -16,6 +16,21 @@ const registerUser = async (userData) => {
   }
   return data;
 };
+const loginUser = async (userData) => {
+  const response = await fetch(`${API_URL}/auth/login`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(userData),
+  });
+  const data = await response.json();
+  console.log(data);
+  if (!response.ok) {
+    throw new Error(data.errors?.[0]?.msg || "Failed to log in");
+  }
+  return data;
+};
 // ============ GET ============
 // ---- Posts ----
 const getPosts = async () => {
@@ -41,4 +56,4 @@ const getComments = async (postId) => {
   return response.json();
 };
 
-export { registerUser, getPosts, getPostById, getComments };
+export { registerUser, loginUser, getPosts, getPostById, getComments };

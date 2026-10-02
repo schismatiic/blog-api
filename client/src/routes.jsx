@@ -2,6 +2,7 @@ import App from "./App";
 import Home from "./pages/Home";
 import Post from "./pages/Post";
 import Register from "./pages/Register";
+import Login from "./pages/Login";
 import About from "./pages/About";
 import ErrorPage from "./pages/ErrorPage";
 
@@ -22,6 +23,10 @@ const routes = [
       {
         path: "auth/register",
         element: <Register />,
+      },
+      {
+        path: "auth/login",
+        element: <Login />,
       },
       {
         path: "about",

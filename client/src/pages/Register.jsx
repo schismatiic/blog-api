@@ -36,6 +36,8 @@ const Register = () => {
       navigate("/auth/login");
     } catch (error) {
       setError(error.message);
+    } finally {
+      setLoading(false);
     }
   };
   return (
