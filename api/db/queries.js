@@ -34,6 +34,14 @@ const createComment = async (content, usersId, postsId) => {
       usersId,
       postsId,
     },
+    include: {
+      users: {
+        select: {
+          username: true,
+          avatarUrl: true,
+        },
+      },
+    },
   });
   return comment;
 };
@@ -82,6 +90,9 @@ const getPosts = async () => {
     where: {
       isPublished: true,
     },
+    orderBy: {
+      added: "desc",
+    },
   });
   return posts;
 };
@@ -119,6 +130,9 @@ const getComments = async (postsId) => {
           avatarUrl: true,
         },
       },
+    },
+    orderBy: {
+      added: "desc",
     },
   });
   return comments;

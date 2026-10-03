@@ -25,9 +25,24 @@ const loginUser = async (userData) => {
     body: JSON.stringify(userData),
   });
   const data = await response.json();
-  console.log(data);
   if (!response.ok) {
     throw new Error(data.errors?.[0]?.msg || "Failed to log in");
+  }
+  return data;
+};
+// ---- Comments ----
+const createComment = async (content, postId, token) => {
+  const response = await fetch(`${API_URL}/posts/${postId}/comments`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ content }),
+  });
+  const data = await response.json();
+  if (!response.ok) {
+    throw new Error(data.errors?.[0]?.msg || "Failed to create a comment");
   }
   return data;
 };
@@ -90,6 +105,7 @@ const updateUserAvatar = async (avatarUrl, token) => {
 export {
   registerUser,
   loginUser,
+  createComment,
   getUserProfile,
   getPosts,
   getPostById,

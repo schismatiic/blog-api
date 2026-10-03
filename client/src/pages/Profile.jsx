@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { ChevronLeft, User } from "lucide-react";
+import { FaPaw } from "react-icons/fa";
 import { useAuth } from "../context/AuthContext";
 import { updateUserAvatar } from "../services/api";
 
@@ -54,7 +55,7 @@ const Profile = () => {
               <img
                 src={profile.avatarUrl}
                 alt={profile.username}
-                className="h-32 w-32 rounded-full object-cover border-2 border-teal-400"
+                className="h-32 w-32 rounded-full object-cover border border-taupe-600/40"
               />
             ) : (
               <div className="h-32 w-32 border border-taupe-600/40 rounded-full flex items-center justify-center">

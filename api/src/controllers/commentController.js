@@ -22,10 +22,7 @@ const createComment = async (req, res) => {
   const { postId } = req.params;
   const { content } = matchedData(req);
   const comment = await db.createComment(content, userId, Number(postId));
-  return res.status(201).json({
-    message: "Comment created successfully",
-    content: comment.content,
-  });
+  return res.status(201).json(comment);
 };
 // Read
 const getComments = async (req, res) => {
