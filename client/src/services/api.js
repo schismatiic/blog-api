@@ -31,7 +31,19 @@ const loginUser = async (userData) => {
   }
   return data;
 };
-// ============ GET ============
+// ============ READ ============
+// ---- Users ----
+const getUserProfile = async (token) => {
+  const response = await fetch(`${API_URL}/users/profile`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  if (!response.ok) {
+    throw new Error("Failed to fetch user profile");
+  }
+  return response.json();
+};
 // ---- Posts ----
 const getPosts = async () => {
   const response = await fetch(`${API_URL}/posts`);
@@ -55,5 +67,32 @@ const getComments = async (postId) => {
   }
   return response.json();
 };
+// ============ UPDATE ============
+// ---- Users ----
+const updateUserAvatar = async (avatarUrl, token) => {
+  const response = await fetch(`${API_URL}/users/profile`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ avatarUrl }),
+  });
+  const data = await response.json();
+  if (!response.ok) {
+    throw new Error(
+      data.errors?.[0]?.msg || "Failed to update the user avatar",
+    );
+  }
+  return data;
+};
 
-export { registerUser, loginUser, getPosts, getPostById, getComments };
+export {
+  registerUser,
+  loginUser,
+  getUserProfile,
+  getPosts,
+  getPostById,
+  getComments,
+  updateUserAvatar,
+};

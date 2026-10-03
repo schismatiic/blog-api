@@ -63,6 +63,19 @@ const getEmail = async (email) => {
   });
   return user;
 };
+const getUserProfile = async (id) => {
+  const user = await prisma.users.findUnique({
+    where: {
+      id,
+    },
+    select: {
+      id: true,
+      username: true,
+      avatarUrl: true,
+    },
+  });
+  return user;
+};
 // ---- Posts ----
 const getPosts = async () => {
   const posts = await prisma.posts.findMany({
@@ -178,6 +191,7 @@ export default {
   getIdentifier,
   getUsername,
   getEmail,
+  getUserProfile,
   getPosts,
   getPostById,
   getAdminPosts,

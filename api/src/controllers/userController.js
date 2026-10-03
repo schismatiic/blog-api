@@ -10,7 +10,12 @@ const validateAvatar = [
     .isURL()
     .withMessage("Avatar URL must be a valid URL"),
 ];
-
+// Read
+const getUserProfile = async (req, res) => {
+  const { userId } = req.user;
+  const user = await db.getUserProfile(userId);
+  return res.json(user);
+};
 // Update
 const updateUserAvatar = async (req, res) => {
   const errors = validationResult(req);
@@ -25,4 +30,4 @@ const updateUserAvatar = async (req, res) => {
   return res.json(user);
 };
 
-export { updateUserAvatar, validateAvatar };
+export { getUserProfile, updateUserAvatar, validateAvatar };

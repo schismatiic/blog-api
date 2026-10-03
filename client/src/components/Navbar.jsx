@@ -1,11 +1,21 @@
 import { Link } from "react-router";
-import { Menu, House, Info, X, LogIn, UserRoundPlus } from "lucide-react";
+import {
+  Menu,
+  House,
+  Info,
+  X,
+  LogIn,
+  LogOut,
+  User,
+  UserRoundPlus,
+  LayoutDashboard,
+} from "lucide-react";
 import { useState } from "react";
 import { FaPaw } from "react-icons/fa";
 import { useAuth } from "../context/AuthContext";
 
 const Navbar = () => {
-  const { token, logout } = useAuth();
+  const { user, profile, token, logout } = useAuth();
   const [toggleOpen, setToggleOpen] = useState(false);
   return (
     <header className="sticky top-0 z-50 bg-olive-100 shadow-sm">
@@ -48,12 +58,39 @@ const Navbar = () => {
           </ul>
           {/* Auth buttons  */}
           {token ? (
-            <button
-              className="flex gap-1 items-center border border-taupe-600/40 px-2 py-1 rounded-xl hover:bg-olive-200 cursor-pointer"
-              onClick={logout}
-            >
-              Log out
-            </button>
+            <ul className="flex gap-2 items-center text-sm md:text-lg">
+              {user?.role === "ADMIN" && (
+                <li className="flex gap-1 items-center text-olive-100 px-2 py-1 rounded-xl bg-teal-400 hover:bg-teal-500 cursor-pointer whitespace-nowrap">
+                  <LayoutDashboard className="w-5 h-5" />
+                  <Link to="/admin/posts">Admin</Link>
+                </li>
+              )}
+              <li>
+                <button
+                  className="flex gap-1 items-center border border-taupe-600/40 px-2 py-1 rounded-xl hover:bg-olive-200 cursor-pointer whitespace-nowrap"
+                  onClick={logout}
+                >
+                  <LogOut className="w-5 h-5" />
+                  Log out
+                </button>
+              </li>
+              {profile?.avatarUrl ? (
+                <Link to="/users/profile">
+                  <img
+                    src={profile.avatarUrl}
+                    alt={profile.username}
+                    className="hidden md:flex ml-2 h-10 w-10 rounded-full object-cover cursor-pointer"
+                  />
+                </Link>
+              ) : (
+                <Link to="/users/profile">
+                  <User
+                    strokeWidth={1.5}
+                    className="border border-taupe-600/40 rounded-full h-10 w-10 p-1 cursor-pointer hover:bg-olive-200"
+                  />
+                </Link>
+              )}
+            </ul>
           ) : (
             <ul className="flex gap-2 items-center text-sm md:text-lg">
               <li className="flex gap-1 items-center text-olive-100 px-2 py-1 rounded-xl bg-teal-400 hover:bg-teal-500 cursor-pointer whitespace-nowrap">
@@ -77,6 +114,16 @@ const Navbar = () => {
               >
                 <House className="w-5 h-5" />
                 Home
+              </Link>
+            </li>
+            <li className="flex items-center">
+              <Link
+                className="flex items-center gap-1 hover:text-olive-100 hover:bg-teal-400 w-full p-2"
+                onClick={() => setToggleOpen(!toggleOpen)}
+                to="/users/profile"
+              >
+                <User className="w-5 h-5" />
+                Profile
               </Link>
             </li>
             <li className="flex items-center">
