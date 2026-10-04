@@ -85,16 +85,29 @@ const getUserProfile = async (id) => {
   return user;
 };
 // ---- Posts ----
-const getPosts = async () => {
-  const posts = await prisma.posts.findMany({
-    where: {
-      isPublished: true,
-    },
-    orderBy: {
-      added: "desc",
-    },
-  });
-  return posts;
+const getPosts = async (page = 1, limit = 12) => {
+  const [posts, totalPosts] = await Promise.all([
+    prisma.posts.findMany({
+      where: {
+        isPublished: true,
+      },
+      orderBy: {
+        added: "desc",
+      },
+      skip: (page - 1) * limit,
+      take: limit,
+    }),
+    prisma.posts.count({
+      where: {
+        isPublished: true,
+      },
+    }),
+  ]);
+  return {
+    posts,
+    hasNextPage: page * limit < totalPosts,
+    hasPreviousPage: page > 1,
+  };
 };
 const getPostById = async (id) => {
   const post = await prisma.posts.findFirst({

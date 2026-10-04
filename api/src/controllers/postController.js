@@ -2,7 +2,9 @@ import db from "../../db/queries.js";
 
 // Read
 const getPosts = async (req, res) => {
-  const posts = await db.getPosts();
+  const page = Number(req.query.page) || 1;
+  const limit = Number(req.query.limit) || 12;
+  const posts = await db.getPosts(page, limit);
   return res.json(posts);
 };
 const getPost = async (req, res) => {

@@ -60,8 +60,8 @@ const getUserProfile = async (token) => {
   return response.json();
 };
 // ---- Posts ----
-const getPosts = async () => {
-  const response = await fetch(`${API_URL}/posts`);
+const getPosts = async (page = 1, limit = 12) => {
+  const response = await fetch(`${API_URL}/posts?page=${page}&limit=${limit}`);
   if (!response.ok) {
     throw new Error("Failed to fetch posts");
   }
